@@ -1,13 +1,31 @@
 #!/usr/bin/env python3
 
 import argparse
+import io
 import requests
+
 from pydub import AudioSegment
 from pydub.playback import play
-import io
+
+import sys
+from pathlib import Path
+
+# Add the parent directory of the current file to PYTHONPATH
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from configdict import ConfigDict
 
 # Define the API endpoint default
 DEFAULT_TTS_URL = "http://localhost:5000/tts"
+
+# init config
+config = ConfigDict("client.json")
+config.default("mode", "play_audio")
+
+
+def handle_audio(audio_segment):
+    if config.mode == "play_audio":
+        play(audio_segment)
 
 
 def send_text_get_audio(text, tts_url):
@@ -23,7 +41,7 @@ def send_text_get_audio(text, tts_url):
         )
 
         # Play the audio segment
-        play(audio_segment)
+        handle_audio(audio_segment)
     else:
         print("Failed to get audio from server:", response.status_code)
 

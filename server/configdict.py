@@ -44,6 +44,33 @@ class ConfigDict:
     def __repr__(self):
         return repr(self._data)
 
+    def default(self, k, v):
+        # set a value if key does not exist
+        if self[k] is None:
+            self[k] = v
+
+
+if __name__ == "__main__":
+    # DELETEME: test functions
+    config = ConfigDict("test_config.json")
+
+    config["this"] = "that"
+
+    try:
+        assert config["this"] == "something"
+    except AssertionError:
+        print("assertion working as intended")
+
+    assert config["this"] == "that"
+
+    config.default("this", "the other")
+
+    assert config["this"] == "that"
+
+    config.default("something", "works")
+
+    assert config["something"] == "works"
+
 
 # Usage:
 # config = ConfigDict("config.json")
