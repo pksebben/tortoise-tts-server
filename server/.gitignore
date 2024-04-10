@@ -1,4 +1,4 @@
-server-config.json
-client-config.json
+config-server.json
+config-client.json
 test_config.json
 test.txt

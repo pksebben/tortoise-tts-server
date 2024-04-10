@@ -19,7 +19,7 @@ from configdict import ConfigDict
 DEFAULT_TTS_URL = "http://localhost:5000/tts"
 
 # init config
-config = ConfigDict("client.json")
+config = ConfigDict("config-client.json")
 config.default("mode", "play_audio")
 
 
